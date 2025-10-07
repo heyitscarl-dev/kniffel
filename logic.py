@@ -30,7 +30,7 @@ if wurf_Mensch() == True:
 
 #bot ist dran
 
-time.sleep(3)
+sleep(3)
 
 def wurf_Bot():
     anzahl_behalten = randint(1, 5)
