@@ -1,4 +1,5 @@
 from random import randint
+from time import sleep
 
 
 wuerfels = [0, 0, 0, 0, 0]
@@ -29,13 +30,15 @@ if wurf_Mensch() == True:
 
 #bot ist dran
 
+time.sleep(3)
+
 def wurf_Bot():
-    anzahl_behalten = randit(1, 5)
+    anzahl_behalten = randint(1, 5)
+    for i in range(anzahl_behalten):
+        index = randint(0, 4)
+        
     
-    
-   
-
-
-
+        
+       
 
 # Ausgeben
