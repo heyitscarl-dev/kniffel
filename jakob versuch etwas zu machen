@@ -1,0 +1,19 @@
+from collections import Counter
+ 
+def kniffelauswertung:
+zähler = Counter
+punkte = []
+
+einser = sum ,all ,1
+zweier = sum ,all ,2
+dreier = sum ,all ,3 
+vierer = sum ,all ,4
+fuenfer = sum ,all ,5
+sechser = sum ,all ,6
+dreierpasch = 3* (1 or 2 or 3 or 4 or 5 or 6) = sum ,all
+viererpasch = 4* (1 or 2 or 3 or 4 or 5 or 6) = sum ,all
+fullhouse = 3* (1 or 2 or 3 or 4 or 5 or 6) + 2* (1 or 2 or 3 or 4 or 5 or 6) = 25
+kleinestrasse = (1 ,2 ,3 ,4) or (2, 3, 4 ,5) or (3 ,4 ,5 ,6) = 30
+grossestrasse = (1 ,2 ,3 ,4 ,5) or (2 ,3 ,4 ,5 ,6) = 40
+kniffel = 5* (1 or 2 or 3 or 4 or 5 or 6) = 50
+chance = sum ,all
