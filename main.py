@@ -1,39 +1,38 @@
 import pygame
-import dice
+
+MAXIMUM_FPS = 30
 
 pygame.init()
-screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True 
 
-open = dice.Dice(50, 50)
-kept = dice.Dice(50, 50)
+def handle_mouse_event(event: pygame.event.Event) -> bool:
+    return True
+
+def handle_key_event(event: pygame.event.Event) -> bool:
+    return True
+
+def handle_event(event: pygame.event.Event) -> bool:
+    if event.type == pygame.QUIT:
+            return False
+    elif event.type == pygame.KEYDOWN:
+            return handle_key_event(event)
+    elif event.type == pygame.MOUSEBUTTONDOWN:
+            return handle_mouse_event(event)
+    else:
+        return True
+
+def handle_events():
+    for event in pygame.event.get():
+        if not handle_event(event):
+            return False
+    return True
 
 while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                open.roll()
-            elif event.key == pygame.K_ESCAPE:
-                running = False
-        if event.type == pygame.MOUSEBUTTONUP:
-            pos = pygame.mouse.get_pos()
-            dice = open.dice
-            rects = open.rects((500, 500))
-
-            indices = [ i for (i, rect) in enumerate(rects) if rect.collidepoint(pos) ]
-            for i in indices:
-                clicked = open.dice.pop(i)
-                kept.append(clicked)
-
-    screen.fill((255, 255, 255))
-
-    screen.blit(open.draw(), (500, 500))
-    screen.blit(open.draw(), (500, 100))
+    running = handle_events()
 
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(MAXIMUM_FPS)
 
 pygame.quit()
