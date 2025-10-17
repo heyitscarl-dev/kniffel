@@ -22,7 +22,9 @@ def main() -> None:
             or e.type == pygame.QUIT):
                 running = False
             elif e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                die.set(random.randint(1, 6))
+                die.roll()
+            elif e.type == pygame.KEYDOWN and e.key == pygame.K_k:
+                die.toggle_keep()
 
         interface.prepare()
 

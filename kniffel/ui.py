@@ -1,3 +1,4 @@
+import random
 import pygame
 
 class Interface:
@@ -27,6 +28,7 @@ class Interface:
 
 DIE_SIZE = 50
 DIE_BACKGROUND = (0, 0, 0)
+DIE_BACKGROUND_KEPT = (50, 50, 50)
 DIE_FOREGROUND = (255, 255, 255)
 DIE_PIP_SIZE = DIE_SIZE // 10
 
@@ -45,15 +47,20 @@ class Die:
         self.value = value
         self.kept = False
 
-    def set(self, value: int):
-        self.value = value
+    def roll(self):
+        if self.kept: return
+        self.value = random.randint(1, 6)
 
     def toggle_keep(self):
         self.kept = not self.kept
 
     def draw(self, interface: Interface, center: pygame.Vector2):
         surface = pygame.Surface((DIE_SIZE, DIE_SIZE))
-        pygame.draw.rect(surface, DIE_BACKGROUND, [0, 0, DIE_SIZE, DIE_SIZE])
+        pygame.draw.rect(
+            surface, 
+            DIE_BACKGROUND if not self.kept else DIE_BACKGROUND_KEPT, 
+            [0, 0, DIE_SIZE, DIE_SIZE]
+        )
 
         def pip(relative_x: float, relative_y: float):
             pygame.draw.circle(
