@@ -34,8 +34,8 @@ LEFT = 0.2
 CENTER = 0.5
 RIGHT = 0.8
 
-TOP = 0.8           # glaube ich(?)
-BOTTOM = 0.2
+TOP = 0.2
+BOTTOM = 0.8
 
 class Die:
     value: int
@@ -49,7 +49,7 @@ class Die:
         self.value = value
 
     def toggle_keep(self):
-        self.keep = not self.keep
+        self.kept = not self.kept
 
     def draw(self, interface: Interface, center: pygame.Vector2):
         surface = pygame.Surface((DIE_SIZE, DIE_SIZE))
