@@ -26,6 +26,8 @@ def main() -> None:
             elif e.type == pygame.KEYDOWN and e.key == pygame.K_k:
                 die.toggle_keep()
 
+        die.tick(dt)
+
         interface.prepare()
 
         interface.surface.blit(die.draw(), pygame.Vector2(
