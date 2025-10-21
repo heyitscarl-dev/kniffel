@@ -22,8 +22,16 @@ def main() -> None:
                 running = False
             elif e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
                 die_group.roll()
-            # elif e.type == pygame.KEYDOWN and e.key == pygame.K_k:
-            #     die.toggle_keep()
+            elif e.type == pygame.KEYDOWN and e.key == pygame.K_1:
+                die_group.toggle_keep(0)
+            elif e.type == pygame.KEYDOWN and e.key == pygame.K_2:
+                die_group.toggle_keep(1)
+            elif e.type == pygame.KEYDOWN and e.key == pygame.K_3:
+                die_group.toggle_keep(2)
+            elif e.type == pygame.KEYDOWN and e.key == pygame.K_4:
+                die_group.toggle_keep(3)
+            elif e.type == pygame.KEYDOWN and e.key == pygame.K_5:
+                die_group.toggle_keep(4)
 
         die_group.tick(dt)
 

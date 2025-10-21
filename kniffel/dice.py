@@ -122,6 +122,9 @@ class Dice:
     def __init__(self, length: int):
         self.group = [Die(i) for i in range(length)]
 
+    def toggle_keep(self, index: int):
+        self.group[index].toggle_keep()
+
     def roll(self):
         for die in self.group:
             die.roll()
