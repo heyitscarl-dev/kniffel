@@ -41,6 +41,9 @@ class Die:
         self.current = random.randint(1, 6)
 
     def toggle_keep(self):
+        if self.rolling:
+            return
+
         self.kept = not self.kept
 
     def tick(self, dt: float):
