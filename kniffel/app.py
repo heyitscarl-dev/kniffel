@@ -1,5 +1,5 @@
 from enum import Enum, auto
-from kniffel import ui
+from kniffel import dice, ui
 
 import pygame
 import random
@@ -7,7 +7,7 @@ import random
 FRAMERATE = 60
 
 def main() -> None:
-    die = ui.Die(5)
+    die = dice.Die(5)
 
     running = True
 
@@ -28,9 +28,9 @@ def main() -> None:
 
         interface.prepare()
 
-        die.draw(interface, pygame.Vector2(
-            interface.dimensions.x // 2,
-            interface.dimensions.y // 2
+        interface.surface.blit(die.draw(), pygame.Vector2(
+            interface.dimensions.x // 2 - dice.DIE_SIZE // 2,
+            interface.dimensions.y // 2 - dice.DIE_SIZE // 2
         ))
 
         interface.finish()
