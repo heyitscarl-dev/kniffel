@@ -43,10 +43,10 @@ class Die:
         self.kept = not self.kept
 
     def tick(self, dt: float):
-        self.time += dt
-
         if not self.rolling:
             return
+
+        self.time += dt
 
         if self.time >= DIE_ANIMATION_MILLIS:
             self.time = 0
