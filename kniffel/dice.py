@@ -7,7 +7,7 @@ DIE_BACKGROUND_KEPT = (50, 50, 50)
 DIE_FOREGROUND = (255, 255, 255)
 DIE_PIP_SIZE = DIE_SIZE // 10
 
-DIE_ANIMATION_MILLIS = 2000
+DIE_ANIMATION_MILLIS = 1000
 DIE_ANIMATION_MILLIS_PER_CYCLE = 250
 DIE_ANIMATION_CYCLES = DIE_ANIMATION_MILLIS // DIE_ANIMATION_MILLIS_PER_CYCLE
 
@@ -22,7 +22,7 @@ class Die:
     value: int
     kept: bool
 
-    current: int | None = None
+    current: int = 1
     rolling: bool = False
     cycle: int = 0
     time: float = 0
@@ -67,7 +67,7 @@ class Die:
             self.current = next_cycle_value
 
     def draw(self) -> pygame.Surface:
-        surface = pygame.Surface((DIE_SIZE, DIE_SIZE))
+        surface = pygame.Surface((DIE_SIZE, DIE_SIZE), pygame.SRCALPHA)
         pygame.draw.rect(
             surface, 
             DIE_BACKGROUND if not self.kept else DIE_BACKGROUND_KEPT, 
@@ -110,4 +110,36 @@ class Die:
             pip(RIGHT, CENTER)
             pip(RIGHT, BOTTOM)
         
+        return surface
+
+DIE_GROUP_MARGIN = 50
+DIE_GROUP_SIZE = 5
+DIE_GROUP_WIDTH = DIE_SIZE * DIE_GROUP_SIZE + DIE_GROUP_MARGIN * ( DIE_GROUP_SIZE - 1 )
+
+class Dice:
+    group: list[Die]
+
+    def __init__(self, length: int):
+        self.group = [Die(i) for i in range(length)]
+
+    def roll(self):
+        for die in self.group:
+            die.roll()
+
+    def tick(self, dt: float):
+        for die in self.group:
+            die.tick(dt)
+
+    def draw(self) -> pygame.Surface:
+        surface = pygame.Surface((
+            DIE_GROUP_WIDTH, 
+            DIE_SIZE
+        ), pygame.SRCALPHA)
+
+        for i, die in enumerate(self.group):
+            surface.blit(die.draw(), (
+                DIE_SIZE * i + DIE_GROUP_MARGIN * ( i ),
+                0
+            ))
+
         return surface

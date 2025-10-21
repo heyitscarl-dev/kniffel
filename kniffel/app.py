@@ -2,12 +2,11 @@ from enum import Enum, auto
 from kniffel import dice, ui
 
 import pygame
-import random
 
 FRAMERATE = 60
 
 def main() -> None:
-    die = dice.Die(5)
+    die_group = dice.Dice(5)
 
     running = True
 
@@ -22,16 +21,16 @@ def main() -> None:
             or e.type == pygame.QUIT):
                 running = False
             elif e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                die.roll()
-            elif e.type == pygame.KEYDOWN and e.key == pygame.K_k:
-                die.toggle_keep()
+                die_group.roll()
+            # elif e.type == pygame.KEYDOWN and e.key == pygame.K_k:
+            #     die.toggle_keep()
 
-        die.tick(dt)
+        die_group.tick(dt)
 
         interface.prepare()
 
-        interface.surface.blit(die.draw(), pygame.Vector2(
-            interface.dimensions.x // 2 - dice.DIE_SIZE // 2,
+        interface.surface.blit(die_group.draw(), pygame.Vector2(
+            interface.dimensions.x // 2 - dice.DIE_GROUP_WIDTH // 2,
             interface.dimensions.y // 2 - dice.DIE_SIZE // 2
         ))
 
