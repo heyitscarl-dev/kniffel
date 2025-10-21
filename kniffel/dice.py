@@ -24,11 +24,12 @@ class Die:
 
     current: int | None = None
     rolling: bool = False
-    cycle: int = 1
+    cycle: int = 0
     time: float = 0
 
     def __init__(self, value: int) -> None:
         self.value = value
+        self.current = value
         self.kept = False
 
     def roll(self):
@@ -50,7 +51,7 @@ class Die:
 
         if self.time >= DIE_ANIMATION_MILLIS:
             self.time = 0
-            self.cycle = 1
+            self.cycle = 0
             self.rolling = False 
             self.current = self.value
         
