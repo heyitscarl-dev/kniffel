@@ -1,17 +1,26 @@
 use axum::{routing::get, Router};
+use tracing::info;
 
 use crate::socket::handle_upgrade;
 
-pub const PROTOCOL_VERSION: u32 = 1;
-
 mod socket;
 
-#[tokio::main]
-async fn main() {
-    let app = Router::new()
-        .route("/socket", get(handle_upgrade));
 
-    // run our app with hyper, listening globally on port 3000
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+pub const PROTOCOL_VERSION: u32     = 1;
+const BIND_ADDRESS: &'static str    = "127.0.0.1:3000";
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    tracing_subscriber::fmt::init();
+
+    let app = Router::new()
+        .route("/version", get(|| async { PROTOCOL_VERSION.to_string() }))
+        .route("/socket", get(handle_upgrade));
+    
+    info!("Starting server on http://{}", BIND_ADDRESS);
+
+    let listener = tokio::net::TcpListener::bind(BIND_ADDRESS).await.unwrap();
     axum::serve(listener, app).await.unwrap();
+
+    Ok(())
 }
