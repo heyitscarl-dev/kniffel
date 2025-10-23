@@ -32,7 +32,7 @@ _After_
 | `Score`               | `ScoreOk`                 | `Scored`              |                       |
 | `Ping`                | `Pong`                    |                       |                       |
 |                       |                           | `Match`               |                       |
-|                       |                           | `Advance`             |                       |
+|                       |                           | `AdvanceTurn`         |                       |
 |                       |                           | `StartGame`           |                       |
 |                       |                           | `GameOver`            |                       |
 |                       | `ClientError`             |                       |                       |
