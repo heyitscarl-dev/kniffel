@@ -21,9 +21,9 @@ _After_
 | Client-Side Request   | Server-Side Response      | Server-Side Broadcast | Client-Side Response  |
 | --------------------- | ------------------------- | --------------------- | --------------------- |
 | `Authenticate`        | `AuthOk` or `AuthErr`     |                       |                       |
-| `CreateMatch`         | `MatchOk`                 |                       |                       |
-| `JoinMatch`           | `JoinOk`                  | `JoinedMatch`         |                       |
-| `ResumeMatch`         | `ResumeOk`                | `JoinedMatch`         |                       |
+| `CreateMatch`         | `MatchOk` and `Match`     |                       |                       |
+| `JoinMatch`           | `JoinOk` and `Match`      | `JoinedMatch`         |                       |
+| `ResumeMatch`         | `ResumeOk` and `Match`    | `JoinedMatch`         |                       |
 | `DisbandMatch`        |                           | `DisbandedMatch`      |                       |
 | `LeaveMatch`          |                           | `LeftMatch`           |                       |
 | `Ready`               | `ReadyOk`                 | `Readied`             |                       |
@@ -35,7 +35,7 @@ _After_
 |                       |                           | `Advance`             |                       |
 |                       |                           | `StartGame`           |                       |
 |                       |                           | `GameOver`            |                       |
-|                       |                           | `Ping`                | `Pong`                |
 |                       | `ClientError`             |                       |                       |
 |                       |                           | `ServerError`         |                       |
+|                       |                           | `Ping`                | `Pong`                |
 | `Disconnect`          |                           | `Disconnected`        | `Wait` or `Claim`     |
