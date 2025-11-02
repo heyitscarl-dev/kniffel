@@ -4,18 +4,22 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum Error {
-    #[error("Invalid Token Type: \"{}\"", 0)]
+    #[error("Invalid Token Type: {}", 0)]
     InvalidType(String),
 
-    #[error("Internal Encoding Error")]
-    Encoding(#[from] jsonwebtoken::errors::Error),
+    #[error("Invalid Token Expiry: Already Expired.")]
+    InvalidExpiry,
+
+    #[error("Internal Serialization Error (JWT)")]
+    Serialization(#[from] jsonwebtoken::errors::Error),
 }
 
 impl Error {
     fn into_status(&self) -> StatusCode {
         match *self {
             Self::InvalidType(_) => StatusCode::BAD_REQUEST,
-            Self::Encoding(_) => StatusCode::INTERNAL_SERVER_ERROR
+            Self::InvalidExpiry => StatusCode::UNAUTHORIZED,
+            Self::Serialization(_) => StatusCode::INTERNAL_SERVER_ERROR
         }
     }
 }

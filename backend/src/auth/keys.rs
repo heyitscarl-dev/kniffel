@@ -1,6 +1,6 @@
 use jsonwebtoken::{DecodingKey, EncodingKey};
 
-pub(crate) struct Keys {
+pub struct Keys {
     pub encode: EncodingKey,
     pub decode: DecodingKey,
 }

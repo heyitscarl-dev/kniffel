@@ -3,15 +3,16 @@ use std::sync::Arc;
 use axum::{Json, extract::State, response::IntoResponse};
 use chrono::{Duration, Utc};
 use hyper::StatusCode;
-use jsonwebtoken::{encode, Algorithm, Header};
+use jsonwebtoken::{decode, encode, Algorithm, Header, Validation};
 use serde::{Deserialize, Serialize};
 use ulid::Ulid;
 
 use crate::auth::{
     claims::{Claims, TokenType},
-    error::{Error, Result},
-    keys::Keys,
 };
+
+pub use error::{Result, Error};
+pub use keys::Keys;
 
 mod claims;
 mod error;
@@ -75,6 +76,23 @@ fn issue_session(keys: &Keys, hours: i64) -> Result<Token> {
     let header = Header::new(Algorithm::HS256);
 
     encode(&header, &claims, &keys.encode)
-        .map_err(|err| Error::Encoding(err))
+        .map_err(|err| Error::Serialization(err))
         .map(|ok| ok.into())
+}
+
+pub fn verify_session(keys: &Keys, token: impl Into<Token>) -> Result<Claims> {
+    let verified_at = Utc::now().timestamp();
+    
+    let token = decode::<Claims>(&token.into().0, &keys.decode, &Validation::default())?;
+    let claims = token.claims;
+
+    if claims.exp < verified_at {
+        return Err(Error::InvalidExpiry);
+    }
+
+    if claims.typ != TokenType::Session {
+        return Err(Error::InvalidType(format!("Expected {:?} but got {:?}", TokenType::Session, claims.typ)))
+    }
+
+    Ok(claims)
 }

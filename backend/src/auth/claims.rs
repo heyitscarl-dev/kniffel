@@ -2,8 +2,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::auth::{self, error::Error};
 
-#[derive(Debug, Serialize, Deserialize)]
-pub(super) struct Claims {
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Claims {
     pub typ: TokenType,      // type (e.g. "session", or "match")
     pub sub: Option<String>, // subject
     pub iat: i64,            // issued at
@@ -12,8 +12,8 @@ pub(super) struct Claims {
     pub jti: String,         // unique token
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub(super) enum TokenType {
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
+pub enum TokenType {
     Session,
     Match,
 }
