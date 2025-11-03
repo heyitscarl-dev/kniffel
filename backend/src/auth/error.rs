@@ -19,7 +19,7 @@ impl Error {
         match *self {
             Self::InvalidType(_) => StatusCode::BAD_REQUEST,
             Self::InvalidExpiry => StatusCode::UNAUTHORIZED,
-            Self::Serialization(_) => StatusCode::INTERNAL_SERVER_ERROR
+            Self::Serialization(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 }

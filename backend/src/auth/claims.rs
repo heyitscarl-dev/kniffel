@@ -4,12 +4,11 @@ use crate::auth::{self, error::Error};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Claims {
-    pub typ: TokenType,      // type (e.g. "session", or "match")
-    pub sub: Option<String>, // subject
-    pub iat: i64,            // issued at
-    pub iss: String,         // issuer / issued by
-    pub exp: i64,            // expire at
-    pub jti: String,         // unique token
+    pub typ: TokenType, // type (e.g. "session", or "match")
+    pub sub: String,    // subject
+    pub iat: i64,       // issued at
+    pub iss: String,    // issuer / issued by
+    pub exp: i64,       // expire at
 }
 
 #[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
