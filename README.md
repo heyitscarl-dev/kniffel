@@ -1,1 +1,1 @@
-# kniffel-v2
+# kniffel
