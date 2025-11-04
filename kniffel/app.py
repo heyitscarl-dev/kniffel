@@ -5,8 +5,14 @@ import pygame
 
 FRAMERATE = 60
 
+class Phase(Enum):
+    ROLL = 1
+    NOTE = 2
+    WAIT = 3
+
 def main() -> None:
     die_group = dice.Dice(5)
+    phase = Phase.ROLL
 
     running = True
 
@@ -20,18 +26,25 @@ def main() -> None:
             if (e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE
             or e.type == pygame.QUIT):
                 running = False
-            elif e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
-                die_group.roll()
-            elif e.type == pygame.KEYDOWN and e.key == pygame.K_1:
-                die_group.toggle_keep(0)
-            elif e.type == pygame.KEYDOWN and e.key == pygame.K_2:
-                die_group.toggle_keep(1)
-            elif e.type == pygame.KEYDOWN and e.key == pygame.K_3:
-                die_group.toggle_keep(2)
-            elif e.type == pygame.KEYDOWN and e.key == pygame.K_4:
-                die_group.toggle_keep(3)
-            elif e.type == pygame.KEYDOWN and e.key == pygame.K_5:
-                die_group.toggle_keep(4)
+            
+            if phase == Phase.ROLL:
+                if e.type == pygame.KEYDOWN and e.key == pygame.K_SPACE:
+                    die_group.roll()
+                elif e.type == pygame.KEYDOWN and e.key == pygame.K_1:
+                    die_group.toggle_keep(0)
+                elif e.type == pygame.KEYDOWN and e.key == pygame.K_2:
+                    die_group.toggle_keep(1)
+                elif e.type == pygame.KEYDOWN and e.key == pygame.K_3:
+                    die_group.toggle_keep(2)
+                elif e.type == pygame.KEYDOWN and e.key == pygame.K_4:
+                    die_group.toggle_keep(3)
+                elif e.type == pygame.KEYDOWN and e.key == pygame.K_5:
+                    die_group.toggle_keep(4)
+            elif phase == Phase.NOTE:
+                print("tobi")
+                # TOBI IST TOLL
+            elif phase == Phase.WAIT:
+                print("waiting")
 
         die_group.tick(dt)
 
