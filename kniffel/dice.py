@@ -123,7 +123,7 @@ class Dice:
     group: list[Die]
 
     def __init__(self, length: int):
-        self.group = [Die(i) for i in range(length)]
+        self.group = [Die(i + 1) for i in range(length)]
 
     def toggle_keep(self, index: int):
         self.group[index].toggle_keep()
