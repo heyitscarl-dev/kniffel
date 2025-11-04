@@ -88,7 +88,7 @@ while running:
         txt_surface = font.render(str(SUM_1), True, color_ONE)    
         screen.blit(txt_surface, (SUM_BLOCK_1.x, SUM_BLOCK_1.y))
         if SUM_1 > 63:
-           SUM_2 = SUM_1 + 63
+           SUM_2 = SUM_1 + 35
            txt_surface = font.render(str(SUM_2), True, color_ONE)
            screen.blit(txt_surface, (SUM_BLOCK_3.x, SUM_BLOCK_3.y))
            txt_surface = font.render(str(35), True, color_ONE)
