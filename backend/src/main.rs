@@ -10,7 +10,7 @@ mod services;
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    let state = AppState::new("thisisasupersecretsecret", 12);
+    let state = AppState::new("thisisasupersecretsecret", 12);  // FIXME: Change to env variable
     let app = app::router(state);
 
     let addr = "127.0.0.1:3000";
