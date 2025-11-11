@@ -1,9 +1,9 @@
-use axum::{extract::State, response::IntoResponse, routing::post, Router};
+use axum::{extract::State, response::IntoResponse, routing::get, Router};
 
 use crate::app::AppState;
 
 pub fn router() -> Router<AppState> {
-    Router::new().route("/", post(sessions_root))
+    Router::new().route("/", get(sessions_root))
 }
 
 async fn sessions_root(
