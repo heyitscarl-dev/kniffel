@@ -1,5 +1,5 @@
 import pygame, sys
-from button import Button
+from Button import Button
 
 pygame.init()
 
@@ -22,7 +22,7 @@ def play():
         SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
         PLAY_BACK = Button(image=None, pos=(640, 400), 
-                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
+                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="#F0EDBB")
 
         PLAY_BACK.changeColor(PLAY_MOUSE_POS)
         PLAY_BACK.update(SCREEN)
@@ -43,14 +43,14 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(100).render("KNIFFEL", True, "#b68f40")
+        MENU_TEXT = get_font(100).render("KNIFFEL", True, "#F0EDBB")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         PLAY_BUTTON = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 310), 
-                            text_input="PLAY", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input="PLAY", font=get_font(75), base_color="#F0EDBB", hovering_color="White")
        
         QUIT_BUTTON = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 450), 
-                            text_input="QUIT", font=get_font(75), base_color="#d7fcd4", hovering_color="White")
+                            text_input="QUIT", font=get_font(75), base_color="#F0EDBB", hovering_color="White")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
