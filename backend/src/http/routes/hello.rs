@@ -1,14 +1,14 @@
 use axum::{extract::Path, response::IntoResponse, routing::get, Json, Router};
 use serde::Serialize;
 
-use crate::app::AppState;
+use crate::app::MutableAppState;
 
 #[derive(Serialize)]
 pub struct HelloResponse {
     message: String
 }
 
-pub fn router() -> Router<AppState> {
+pub fn router() -> Router<MutableAppState> {
     Router::new()
         .route("/", get(root_hello))
         .route("/{name}", get(hello_name))

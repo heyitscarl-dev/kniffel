@@ -8,7 +8,7 @@ use axum_extra::{
     TypedHeader,
 };
 
-use crate::{app::AppState, services::sessions::SessionID};
+use crate::{app::MutableAppState, services::sessions::SessionID};
 
 /// Extractor for validating session tokens from the Authorization header.
 ///
@@ -20,12 +20,12 @@ use crate::{app::AppState, services::sessions::SessionID};
 /// ```
 pub struct Session(pub SessionID);
 
-impl FromRequestParts<AppState> for Session {
+impl FromRequestParts<MutableAppState> for Session {
     type Rejection = (StatusCode, String);
 
     async fn from_request_parts(
         parts: &mut Parts,
-        state: &AppState,
+        state: &MutableAppState,
     ) -> Result<Self, Self::Rejection> {
         // Extract the Authorization header with Bearer token
         let TypedHeader(Authorization(bearer)) = parts
@@ -41,6 +41,8 @@ impl FromRequestParts<AppState> for Session {
 
         // Validate the token using the session service
         let session_id = state
+            .lock()
+            .unwrap()
             .services
             .sessions
             .validate_session(bearer.token().to_string())

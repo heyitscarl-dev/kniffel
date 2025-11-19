@@ -1,3 +1,4 @@
+use axum::response::IntoResponse;
 use thiserror::Error;
 
 use crate::auth::claims::ClaimsType;
@@ -15,3 +16,17 @@ pub enum AuthError {
 }
 
 pub type Result<T> = std::result::Result<T, AuthError>;
+
+impl IntoResponse for AuthError {
+    fn into_response(self) -> axum::response::Response {
+        let status_code = match &self {
+            AuthError::JWTError(_) => http::StatusCode::UNAUTHORIZED,
+            AuthError::ClaimsType(_, _) => http::StatusCode::BAD_REQUEST,
+            AuthError::ClaimsSub(_) => http::StatusCode::BAD_REQUEST,
+        };
+
+        let body = format!("Authentication error: {}", self);
+
+        (status_code, body).into_response()
+    }
+}

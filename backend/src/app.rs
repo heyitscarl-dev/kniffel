@@ -1,8 +1,10 @@
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 use axum::{extract::FromRef, Router};
 
-use crate::{auth::jwt::Keys, services::sessions::SessionService};
+use crate::{auth::jwt::Keys, services::{matches::MatchService, sessions::SessionService}};
+
+pub type MutableAppState = Arc<Mutex<AppState>>;
 
 #[derive(Clone)]
 pub struct AppState {
@@ -17,14 +19,16 @@ impl AppState {
 
 #[derive(Clone)]
 pub struct AppServices {
-    pub sessions: SessionService
+    pub sessions: SessionService,
+    pub matches: MatchService,
 }
 
 impl AppServices {
     pub fn new(secret: &str, expire_after_hours: i64) -> Self {
         let keys = Arc::new(Keys::new(secret));
         let sessions = SessionService::new(keys, expire_after_hours);
-        Self { sessions }
+        let matches = MatchService::new(Arc::new(sessions.clone()), Default::default());
+        Self { sessions, matches }
     }
 }
 
@@ -34,7 +38,7 @@ impl FromRef<AppState> for AppServices {
     }
 }
 
-pub fn router(state: AppState) -> Router {
+pub fn router(state: Arc<Mutex<AppState>>) -> Router {
     Router::new()
         .nest("/hello", crate::http::routes::hello::router())
         .nest("/auth", crate::http::routes::sessions::router())
