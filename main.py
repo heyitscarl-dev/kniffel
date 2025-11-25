@@ -1,8 +1,7 @@
 import sys, pygame
 
-WIDTH, HEIGHT = 1000, 700
-BOX_WIDTH, BOX_HEIGHT = 65, 38
-BOX_X, BOX_Y = 196, 83
+BOX_WIDTH, BOX_HEIGHT = 466, 95
+BOX_X, BOX_Y = 499, 141
 
 
 def new_box(image_x, image_y, box_x, box_y):
@@ -38,7 +37,14 @@ SUM_BLOCK_4 = new_box (100,100,0,16)
 SUM_BLOCK_5 = new_box (100,100,0,17)
 SUM_BLOCK_6 = new_box (100,100,0,18)
 screen.fill(WHITE)
-block = pygame.image.load("Kniffel-Block-1.png")
+
+block = pygame.image.load("Kniffel-Block-2.jpg")
+
+WIDTH, HEIGHT = 524, 818
+
+block = pygame.transform.scale(block, (WIDTH, HEIGHT))
+
+
 screen.blit(block, (100, 100))
 
 choice_made = False
