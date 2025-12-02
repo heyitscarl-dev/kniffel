@@ -1,8 +1,8 @@
 import pygame
 
 class KniffelGame:
-    BOX_WIDTH, BOX_HEIGHT = 466, 95
-    BOX_X, BOX_Y = 499, 141
+    BOX_WIDTH, BOX_HEIGHT = 135 // 2, 80 // 2
+    BOX_X, BOX_Y = 414 // 2, 216 // 2
     
     def __init__(self):
         pygame.init()
@@ -16,30 +16,33 @@ class KniffelGame:
         self.dice = [1, 1, 1, 4, 4]
         
         # Load and scale image
-        self.block = pygame.image.load("Kniffel-Block-2.jpg")
-        self.block = pygame.transform.scale(self.block, (524, 818))
+        self.block = pygame.image.load("Kniffel-Block-3.jpg")
+        self.block = pygame.transform.scale(self.block, (547, 869))
         
+        # Versetzung um die Lücke in dem Block auszugleichen
+        self.gap_offset = 20 // 2
+
         # Create rectangles for clickable areas
         self.boxes = {
-            'ONE': self.new_box(100, 100, 0, 0),
-            'TWO': self.new_box(100, 100, 0, 1),
-            'THREE': self.new_box(100, 100, 0, 2),
-            'FOUR': self.new_box(100, 100, 0, 3),
-            'FIVE': self.new_box(100, 100, 0, 4),
-            'SIX': self.new_box(100, 100, 0, 5),
-            'SUM_BLOCK_1': self.new_box(100, 100, 0, 6),
-            'SUM_BLOCK_2': self.new_box(100, 100, 0, 7),
-            'SUM_BLOCK_3': self.new_box(100, 100, 0, 8),
-            'THREE_OF_A_KIND': self.new_box(100, 100, 0, 9),
-            'FOUR_OF_A_KIND': self.new_box(100, 100, 0, 10),
-            'FULL_HOUSE': self.new_box(100, 100, 0, 11),
-            'SMALL_STREET': self.new_box(100, 100, 0, 12),
-            'BIG_STREET': self.new_box(100, 100, 0, 13),
-            'KNIFFEL': self.new_box(100, 100, 0, 14),
-            'CHANCE': self.new_box(100, 100, 0, 15),
-            'SUM_BLOCK_4': self.new_box(100, 100, 0, 16),
-            'SUM_BLOCK_5': self.new_box(100, 100, 0, 17),
-            'SUM_BLOCK_6': self.new_box(100, 100, 0, 18),
+            'ONE': self.new_box(100, 50, 0, 0),
+            'TWO': self.new_box(100, 50, 0, 1),
+            'THREE': self.new_box(100, 50, 0, 2),
+            'FOUR': self.new_box(100, 50, 0, 3),
+            'FIVE': self.new_box(100, 50, 0, 4),
+            'SIX': self.new_box(100, 50, 0, 5),
+            'SUM_BLOCK_1': self.new_box(100, 50, 0, 6),
+            'SUM_BLOCK_2': self.new_box(100, 50, 0, 7),
+            'SUM_BLOCK_3': self.new_box(100, 50, 0, 8),
+            'THREE_OF_A_KIND': self.new_box(100, 50 + self.gap_offset, 0, 9),
+            'FOUR_OF_A_KIND': self.new_box(100, 50 + self.gap_offset, 0, 10),
+            'FULL_HOUSE': self.new_box(100, 50 + self.gap_offset, 0, 11),
+            'SMALL_STREET': self.new_box(100, 50 + self.gap_offset, 0, 12),
+            'BIG_STREET': self.new_box(100, 50 + self.gap_offset, 0, 13),
+            'KNIFFEL': self.new_box(100, 50 + self.gap_offset, 0, 14),
+            'CHANCE': self.new_box(100, 50 + self.gap_offset, 0, 15),
+            'SUM_BLOCK_4': self.new_box(100, 50 + self.gap_offset, 0, 16),
+            'SUM_BLOCK_5': self.new_box(100, 50 + self.gap_offset, 0, 17),
+            'SUM_BLOCK_6': self.new_box(100, 50 + self.gap_offset, 0, 18),
         }
         
         # Initialize scores dictionary
@@ -115,7 +118,7 @@ class KniffelGame:
     def draw(self):
         """Draw everything on screen"""
         self.screen.fill(self.WHITE)
-        self.screen.blit(self.block, (100, 100))
+        self.screen.blit(self.block, (100, 50))
         
         # Draw individual scores
         for category, score in self.scores.items():
