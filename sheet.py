@@ -1,282 +1,168 @@
-import sys, pygame
+import pygame
 
-pygame.init()
-
-BOX_WIDTH, BOX_HEIGHT = 65, 38
-BOX_X, BOX_Y = 196, 83
-
-font= pygame.font.Font(None, 50)
-
-COLOR = (0, 0, 0)
-
-def draw_score(font, score, rect):
-    surface = font.render(str(score), True, COLOR)
-    screen.blit(surface, rect.x, rect.y)
-
-def draw_sheet(offset_x, offset_y, scores: dict[str, int]):
-    for category in rects.keys():
-        draw_score(font, scores[category], rects[category])
-
-def new_box(image_x, image_y, box_x, box_y):
-    x = image_x + BOX_X + (box_x * BOX_WIDTH)
-    y = image_y + BOX_Y + (box_y * BOX_HEIGHT)
-    return pygame.Rect(x, y, BOX_WIDTH, BOX_HEIGHT)
-
-screen = pygame.display.set_mode ((0,0), pygame.FULLSCREEN)
-clock = pygame.time.Clock()
-running = True
-WHITE  =(255,255,255)
-BLACK =(0,0,0)
-
-rects = {
-    "ones": new_box(100, 100, 0, 0),
-    "twos": new_box(100, 100, 0, 1),
-    "threes": new_box(100, 100, 0, 2),
-    "fours": new_box(100, 100, 0, 3),
-    "fives": new_box(100, 100, 0, 4),
-    "sixes": new_box (100, 100, 0, 5),
-    "presum_upper": new_box (100, 100, 0, 6),
-    "bonus_upper": new_box (100, 100, 0, 7),
-    "sum_upper": new_box (100, 100, 0, 8),
-    "three_of_a_kind": new_box (100, 100, 0, 9),
-    "four_of_a_kind": new_box (100, 100, 0, 10),
-    "full_house": new_box (100, 100, 0, 11),
-    "small_straight": new_box (100, 100, 0, 12),
-    "large_straight": new_box (100, 100, 0, 13),
-    "kniffel": new_box (100, 100, 0, 14),
-    "chance": new_box(100, 100, 0, 15),
-    "sum_lower": new_box (100, 100, 0, 16),
-    "repeat_sum_upper": new_box (100, 100, 0, 17),
-    "sum_total": new_box (100, 100, 0, 18),
-}
-
-scores = {
-    "ones": None,
-    "twos": None,
-    "threes": None,
-    "fours": None,
-    "fives": None,
-    "sixes": None,
-    "presum_upper": None,
-    "bonus_upper": None,
-    "sum_upper": None,
-    "three_of_a_kind": None,
-    "four_of_a_kind": None,
-    "full_house": None,
-    "small_straight": None,
-    "large_straight": None,
-    "kniffel": None,
-    "chance": None,
-    "sum_lower": None,
-    "repeat_sum_upper": None,
-    "sum_total": None,
-}
-
-ONE_DONE = False
-TWO_DONE = False
-THREE_DONE= False
-FOUR_DONE = False
-FIVE_DONE = False
-SIX_DONE = False
-THREE_OF_A_KIND_DONE = False
-FOUR_OF_A_KIND_DONE = False
-FULL_HOUSE_DONE = False
-SMALL_STREET_DONE = False
-BIG_STREET_DONE = False
-KNIFFEL_DONE = False
-CHANCE_DONE = False
-
-draw_sheet(0, 0, [])
-
-while running:
-    for event in pygame.event.get():    
-        if event.type == pygame.QUIT:
-            running = False 
-        if event.type == pygame.MOUSEBUTTONDOWN and not choice_made:
-            if rects["ones"].collidepoint(event.pos) and not ONE_DONE:
-                color_ONE = BLACK
-                scores["ones"] = Liste.count(1)*1
-                choice_made = True
-            elif rects["twos"].collidepoint(event.pos) and not TWO_DONE:
-                color_ONE = BLACK
-                scores["twos"] = Liste.count(2)*2
-                choice_made = True
-            elif rects["threes"].collidepoint(event.pos) and not THREE_DONE:
-                color_ONE = BLACK
-                scores["threes"] = Liste.count(3)*3
-                choice_made = True
-            elif rects["fours"].collidepoint(event.pos) and not FOUR_DONE:
-                color_ONE = BLACK
-                scores["fours"] = Liste.count(4)*4
-                choice_made = True
-            elif rects["fives"].collidepoint(event.pos) and not FIVE_DONE:
-                color_ONE = BLACK
-                scores["fives"]  = Liste.count(5)*5
-                choice_made = True
-            elif rects["sixes"].collidepoint(event.pos) and not SIX_DONE:
-                color_ONE = BLACK
-                scores["sixes"]  = Liste.count(6)*6
-                choice_made = True
-            elif rects["three_of_a_kind"].collidepoint(event.pos) and not THREE_OF_A_KIND_DONE:
-                if Liste.count(1) > 2 or Liste.count(2) > 2 or Liste.count(3) > 2 or Liste.count(4) >2 or Liste.count(5) >2 or Liste.count(6) >2:
-                    scores["three_of_a_kind"]  = sum(Liste)
-                    color_ONE = BLACK
-                    choice_made = True
-                else:
-                    scores["three_of_a_kind"]  = 0
-                    color_ONE = BLACK
-                    choice_made = True
-            elif rects["four_of_a_kind"].collidepoint(event.pos) and not FOUR_OF_A_KIND_DONE:
-                if Liste.count(1) > 3 or Liste.count(2) > 3 or Liste.count(3) > 3 or Liste.count(4) >3 or Liste.count(5) >3 or Liste.count(6) >3:
-                    scores["four_of_a_kind"]  = sum(Liste)
-                    color_ONE = BLACK
-                    choice_made = True
-                else:
-                    scores["four_of_a_kind"]  = 0
-                    color_ONE = BLACK
-                    choice_made = True
-            elif rects["full_house"].collidepoint(event.pos) and not FULL_HOUSE_DONE:     
-                if (Liste.count(1) == 3 or Liste.count(2) == 3 or Liste.count(3) == 3 or Liste.count(4) == 3 or Liste.count(5) == 3 or Liste.count(6) == 3) and (Liste.count(1) == 2 or Liste.count(2) == 2 or Liste.count(3) == 2 or Liste.count(4) == 2 or Liste.count(5) == 2 or Liste.count(6) == 2):
-                    scores["full_house"] = 25
-                    color_ONE = BLACK
-                    choice_made = True
-                else: 
-                    scores["full_house"] = 0
-                    color_ONE = BLACK
-                    choice_made = True
-            elif rects["small_straight"].collidepoint(event.pos) and not SMALL_STREET_DONE:
-                if 1 in Liste and 2 in Liste and 3  in Liste and 4 in Liste or 2 in Liste and 3 in Liste and  4 in Liste and 5 in Liste or 3 in Liste and 4 in Liste and 5 in Liste and 6 in Liste:
-                    scores["small_straight"] = 30
-                    color_ONE = BLACK
-                    choice_made = True
-                else: 
-                    scores["small_straight"] = 0
-                    color_ONE = BLACK
-                    choice_made = True
-            elif rects["large_straight"].collidepoint(event.pos) and not BIG_STREET_DONE:
-                if 1 in Liste and 2 in Liste and 3  in Liste and 4 in Liste and 5 in Liste or 2 in Liste and 3 in Liste and  4 in Liste and 5 in Liste and 6 in Liste:
-                    scores["large_straight"] = 40
-                    color_ONE = BLACK
-                    choice_made = True
-                else: 
-                    scores["large_straight"] = 0
-                    color_ONE = BLACK
-                    choice_made = True
-            elif rects["kniffel"].collidepoint(event.pos) and not KNIFFEL_DONE:
-                if Liste.count(1) == 5 or Liste.count(2) == 5 or Liste.count(3) == 5 or Liste.count(4) == 5 or Liste.count(5) == 5 or Liste.count(6) == 5:
-                    scores["kniffel"] = 50
-                    color_ONE = BLACK
-                    choice_made = True
-                else: 
-                    scores["kniffel"] = 0
-                    color_ONE = BLACK
-                    choice_made = True  
-            elif CHANCE.collidepoint(event.pos) and not CHANCE_DONE:
-                scores["chance"] = sum(Liste)
-                color_ONE = BLACK
-                choice_made = True
-
-
+class KniffelGame:
+    BOX_WIDTH, BOX_HEIGHT = 466, 95
+    BOX_X, BOX_Y = 499, 141
     
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.clock = pygame.time.Clock()
+        self.WHITE = (255, 255, 255)
+        self.BLACK = (0, 0, 0)
+        self.font = pygame.font.Font(None, 50)
+        self.running = True
+        self.choice_made = False
+        self.dice = [1, 1, 1, 4, 4]
+        
+        # Load and scale image
+        self.block = pygame.image.load("Kniffel-Block-2.jpg")
+        self.block = pygame.transform.scale(self.block, (524, 818))
+        
+        # Create rectangles for clickable areas
+        self.boxes = {
+            'ONE': self.new_box(100, 100, 0, 0),
+            'TWO': self.new_box(100, 100, 0, 1),
+            'THREE': self.new_box(100, 100, 0, 2),
+            'FOUR': self.new_box(100, 100, 0, 3),
+            'FIVE': self.new_box(100, 100, 0, 4),
+            'SIX': self.new_box(100, 100, 0, 5),
+            'SUM_BLOCK_1': self.new_box(100, 100, 0, 6),
+            'SUM_BLOCK_2': self.new_box(100, 100, 0, 7),
+            'SUM_BLOCK_3': self.new_box(100, 100, 0, 8),
+            'THREE_OF_A_KIND': self.new_box(100, 100, 0, 9),
+            'FOUR_OF_A_KIND': self.new_box(100, 100, 0, 10),
+            'FULL_HOUSE': self.new_box(100, 100, 0, 11),
+            'SMALL_STREET': self.new_box(100, 100, 0, 12),
+            'BIG_STREET': self.new_box(100, 100, 0, 13),
+            'KNIFFEL': self.new_box(100, 100, 0, 14),
+            'CHANCE': self.new_box(100, 100, 0, 15),
+            'SUM_BLOCK_4': self.new_box(100, 100, 0, 16),
+            'SUM_BLOCK_5': self.new_box(100, 100, 0, 17),
+            'SUM_BLOCK_6': self.new_box(100, 100, 0, 18),
+        }
+        
+        # Initialize scores dictionary
+        self.scores = {
+            'ONE': None, 'TWO': None, 'THREE': None,
+            'FOUR': None, 'FIVE': None, 'SIX': None,
+            'THREE_OF_A_KIND': None, 'FOUR_OF_A_KIND': None,
+            'FULL_HOUSE': None, 'SMALL_STREET': None,
+            'BIG_STREET': None, 'KNIFFEL': None, 'CHANCE': None
+        }
+    
+    def new_box(self, image_x: int, image_y: int, box_x: int, box_y: int) -> pygame.Rect:
+        x = image_x + self.BOX_X + (box_x * self.BOX_WIDTH)
+        y = image_y + self.BOX_Y + (box_y * self.BOX_HEIGHT)
+        return pygame.Rect(x, y, self.BOX_WIDTH, self.BOX_HEIGHT)
+    
+    def calculate_score(self, category: str) -> int:
+        """Calculate the score for a given category based on current dice"""
+        if category in ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX']:
+            value = ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX'].index(category) + 1
+            return self.dice.count(value) * value
+        elif category == 'THREE_OF_A_KIND':
+            if any(self.dice.count(i) >= 3 for i in range(1, 7)):
+                return sum(self.dice)
+            return 0
+        elif category == 'FOUR_OF_A_KIND':
+            if any(self.dice.count(i) >= 4 for i in range(1, 7)):
+                return sum(self.dice)
+            return 0
+        elif category == 'FULL_HOUSE':
+            counts = [self.dice.count(i) for i in range(1, 7)]
+            if 3 in counts and 2 in counts:
+                return 25
+            return 0
+        elif category == 'SMALL_STREET':
+            sorted_dice = sorted(set(self.dice))
+            straights = [[1,2,3,4], [2,3,4,5], [3,4,5,6]]
+            if any(all(d in sorted_dice for d in straight) for straight in straights):
+                return 30
+            return 0
+        elif category == 'BIG_STREET':
+            sorted_dice = sorted(set(self.dice))
+            if sorted_dice == [1,2,3,4,5] or sorted_dice == [2,3,4,5,6]:
+                return 40
+            return 0
+        elif category == 'KNIFFEL':
+            if any(self.dice.count(i) == 5 for i in range(1, 7)):
+                return 50
+            return 0
+        elif category == 'CHANCE':
+            return sum(self.dice)
+        return 0
+    
+    def handle_events(self):
+        """Handle pygame events"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN and not self.choice_made:
+                # Check which category was clicked
+                for category, box in self.boxes.items():
+                    if category.startswith('SUM'):  # Skip sum blocks
+                        continue
+                    if box.collidepoint(event.pos) and self.scores[category] is None:
+                        self.scores[category] = self.calculate_score(category)
+                        self.choice_made = True
+                        break
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    self.dice = [5, 5, 5, 5, 5]
+                    self.choice_made = False
+    
+    def draw(self):
+        """Draw everything on screen"""
+        self.screen.fill(self.WHITE)
+        self.screen.blit(self.block, (100, 100))
+        
+        # Draw individual scores
+        for category, score in self.scores.items():
+            if score is not None:
+                txt_surface = self.font.render(str(score), True, self.BLACK)
+                box = self.boxes[category]
+                self.screen.blit(txt_surface, (box.x, box.y))
+        
+        # Draw upper section sum
+        upper_scores = [self.scores[cat] for cat in ['ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX']]
+        if all(s is not None for s in upper_scores):
+            sum_1 = sum(upper_scores)
+            txt_surface = self.font.render(str(sum_1), True, self.BLACK)
+            self.screen.blit(txt_surface, (self.boxes['SUM_BLOCK_1'].x, self.boxes['SUM_BLOCK_1'].y))
             
-    if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP: 
-                Liste = (5,5,5,5,5) 
-                choice_made = False
-    
-
+            # Bonus
+            bonus = 35 if sum_1 >= 63 else 0
+            txt_surface = self.font.render(str(bonus), True, self.BLACK)
+            self.screen.blit(txt_surface, (self.boxes['SUM_BLOCK_2'].x, self.boxes['SUM_BLOCK_2'].y))
+            
+            # Upper total with bonus
+            sum_2 = sum_1 + bonus
+            txt_surface = self.font.render(str(sum_2), True, self.BLACK)
+            self.screen.blit(txt_surface, (self.boxes['SUM_BLOCK_3'].x, self.boxes['SUM_BLOCK_3'].y))
+            
+            # Draw lower section sum
+            lower_scores = [self.scores[cat] for cat in ['THREE_OF_A_KIND', 'FOUR_OF_A_KIND', 'FULL_HOUSE', 'SMALL_STREET', 'BIG_STREET', 'KNIFFEL', 'CHANCE']]
+            if all(s is not None for s in lower_scores):
+                sum_4 = sum(lower_scores)
+                txt_surface = self.font.render(str(sum_4), True, self.BLACK)
+                self.screen.blit(txt_surface, (self.boxes['SUM_BLOCK_4'].x, self.boxes['SUM_BLOCK_4'].y))
                 
-
-    if scores["ones"] != None and scores["twos"] != None and scores["threes"] != None and scores["fours"] != None and scores["fives"]  != None and scores["sixes"]  != None:            
-        SUM_1 = scores["ones"] + scores["twos"] + scores["threes"] + scores["fours"] + scores["fives"]  + scores["sixes"] 
-        txt_surface = font.render(str(SUM_1), True, color_ONE)    
-        screen.blit(txt_surface, (SUM_BLOCK_1.x, SUM_BLOCK_1.y))
-        if SUM_1 > 63:
-           SUM_2 = SUM_1 + 35
-           txt_surface = font.render(str(SUM_2), True, color_ONE)
-           screen.blit(txt_surface, (SUM_BLOCK_3.x, SUM_BLOCK_3.y))
-           txt_surface = font.render(str(35), True, color_ONE)
-           screen.blit(txt_surface, (SUM_BLOCK_2.x, SUM_BLOCK_2.y))
-        else: 
-            SUM_2 = SUM_1
-            txt_surface = font.render(str(SUM_2), True, color_ONE)
-            screen.blit(txt_surface, (SUM_BLOCK_3.x, SUM_BLOCK_3.y))
-            txt_surface = font.render(str(0), True, color_ONE)
-            screen.blit(txt_surface, (SUM_BLOCK_2.x, SUM_BLOCK_2.y))
-    if scores["three_of_a_kind"]  is not None and scores["four_of_a_kind"]  is not None and scores["full_house"] is not None and scores["small_straight"] is not None and scores["large_straight"] is not None and scores["kniffel"] is not None and scores["chance"] is not None:
-        SUM_4 = (scores["three_of_a_kind"]  + scores["four_of_a_kind"]  + scores["full_house"] + scores["small_straight"] + scores["large_straight"] + scores["kniffel"] + scores["chance"])                                                                                          
-        txt_surface = font.render(str(SUM_4), True, color_ONE)    
-        screen.blit(txt_surface, (SUM_BLOCK_4.x, SUM_BLOCK_4.y))
-    if scores["ones"] != None and scores["twos"] != None and scores["threes"] != None and scores["fours"] != None and scores["fives"]  != None and scores["sixes"]  != None and scores["three_of_a_kind"]  is not None and scores["four_of_a_kind"]  is not None and scores["full_house"] is not None and scores["small_straight"] is not None and scores["large_straight"] is not None and scores["kniffel"] is not None and scores["chance"] is not None:
-        txt_surface = font.render(str(SUM_2), True, color_ONE)    
-        screen.blit(txt_surface, (SUM_BLOCK_5.x, SUM_BLOCK_5.y))
-        SUM_6= SUM_2 + SUM_4
-        txt_surface = font.render(str(SUM_6), True, color_ONE)    
-        screen.blit(txt_surface, (SUM_BLOCK_6.x, SUM_BLOCK_6.y))
+                # Upper total (repeated)
+                txt_surface = self.font.render(str(sum_2), True, self.BLACK)
+                self.screen.blit(txt_surface, (self.boxes['SUM_BLOCK_5'].x, self.boxes['SUM_BLOCK_5'].y))
+                
+                # Grand total
+                sum_6 = sum_2 + sum_4
+                txt_surface = self.font.render(str(sum_6), True, self.BLACK)
+                self.screen.blit(txt_surface, (self.boxes['SUM_BLOCK_6'].x, self.boxes['SUM_BLOCK_6'].y))
         
+        pygame.display.flip()
     
-    if scores["ones"] is not None:
-        txt_surface = font.render(str(scores["ones"]), True, color_ONE)
-        screen.blit(txt_surface, (ONE.x, ONE.y))
-        ONE_DONE = True
-    if scores["twos"] is not None:
-        txt_surface = font.render(str(scores["twos"]), True, color_ONE)
-        screen.blit(txt_surface, (TWO.x, TWO.y))
-        TWO_DONE = True
-    if scores["threes"] is not None:
-        txt_surface = font.render(str(AMOUNT_THREE), True, color_ONE)
-        screen.blit(txt_surface, (THREE.x, THREE.y))
-        THREE_DONE = True
-    if scores["fours"] is not None:
-        txt_surface = font.render(str(AMOUNT_FOUR), True, color_ONE)
-        screen.blit(txt_surface, (FOUR.x, FOUR.y))
-        FOUR_DONE = True
-    if scores["fives"]  is not None:
-        txt_surface = font.render(str(scores["fives"] ), True, color_ONE)
-        screen.blit(txt_surface, (FIVE.x, FIVE.y))
-        FIVE_DONE = True
-    if scores["sixes"]  is not None:
-        txt_surface = font.render(str(scores["sixes"] ), True, color_ONE)
-        screen.blit(txt_surface, (SIX.x, SIX.y))
-        SIX_DONE = True
-    if scores["three_of_a_kind"]  is not None:
-        txt_surface = font.render(str(scores["three_of_a_kind"] ), True, color_ONE)
-        screen.blit(txt_surface, (THREE_OF_A_KIND.x, THREE_OF_A_KIND.y))
-        THREE_OF_A_KIND_DONE = True
-    if scores["four_of_a_kind"]  is not None:
-        txt_surface = font.render(str(scores["four_of_a_kind"] ), True, color_ONE)
-        screen.blit(txt_surface, (FOUR_OF_A_KIND.x, FOUR_OF_A_KIND.y))
-        FOUR_OF_A_KIND_DONE = True
-    if scores["full_house"] is not None:
-        txt_surface = font.render(str(scores["full_house"]), True, color_ONE)
-        screen.blit(txt_surface, (FULL_HOUSE.x, FULL_HOUSE.y))
-        FULL_HOUSE_DONE = True
-    if scores["small_straight"] is not None:
-        txt_surface = font.render(str(scores["small_straight"]), True, color_ONE)
-        screen.blit(txt_surface, (SMALL_STREET.x, SMALL_STREET.y))
-        SMALL_STREET_DONE = True
-    if scores["large_straight"] is not None:
-        txt_surface = font.render(str(scores["large_straight"]), True, color_ONE)
-        screen.blit(txt_surface, (BIG_STREET.x, BIG_STREET.y))
-        BIG_STREET_DONE = True
-    if scores["kniffel"] is not None:
-        txt_surface = font.render(str(scores["kniffel"]), True, color_ONE)
-        screen.blit(txt_surface, (KNIFFEL.x, KNIFFEL.y))
-        KNIFFEL_DONE = True
-    if scores["chance"] is not None:
-        txt_surface = font.render(str(scores["chance"]), True, color_ONE)
-        screen.blit(txt_surface, (CHANCE.x, CHANCE.y))
-        CHANCE_DONE = True
-
-        
-    
-     
-
-
- 
-
-    
-    pygame.display.flip()
-    clock.tick(60)
-
-pygame.quit()
+    def run(self):
+        """Main game loop"""
+        while self.running:
+            self.handle_events()
+            self.draw()
+            self.clock.tick(60)
+        pygame.quit()
