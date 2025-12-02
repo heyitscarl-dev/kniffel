@@ -1,7 +1,7 @@
 import sys, pygame
 
-BOX_WIDTH, BOX_HEIGHT = 466, 95
-BOX_X, BOX_Y = 499, 141
+BOX_WIDTH, BOX_HEIGHT = 135 // 2, 80 // 2
+BOX_X, BOX_Y = 414 // 2, 216 // 2
 
 
 def new_box(image_x, image_y, box_x, box_y):
@@ -17,35 +17,34 @@ WHITE  =(255,255,255)
 BLACK =(0,0,0)
 font= pygame.font.Font(None, 50)
 
-ONE = new_box(100, 100, 0, 0)
-TWO = new_box(100, 100, 0, 1)
-THREE = new_box(100,100, 0, 2)
-FOUR = new_box(100,100, 0,3)
-FIVE = new_box (100,100,0,4)
-SIX = new_box (100,100,0,5)
-SUM_BLOCK_1 = new_box (100,100, 0,6)
-SUM_BLOCK_2 = new_box (100,100,0,7)
-SUM_BLOCK_3 = new_box (100,100,0,8)
-THREE_OF_A_KIND = new_box (100,100,0,9)
-FOUR_OF_A_KIND = new_box (100,100,0,10)
-FULL_HOUSE = new_box (100,100,0,11)
-SMALL_STREET = new_box (100,100,0,12)
-BIG_STREET = new_box (100,100,0,13)
-KNIFFEL = new_box (100,100,0,14)
-CHANCE = new_box(100,100,0,15)
-SUM_BLOCK_4 = new_box (100,100,0,16)
-SUM_BLOCK_5 = new_box (100,100,0,17)
-SUM_BLOCK_6 = new_box (100,100,0,18)
+OFFSET = 20 // 2 # Lücke zwischen dem ersten und zweiten Teil des Blocks
+
+ONE = new_box(100, 50, 0, 0)
+TWO = new_box(100, 50, 0, 1)
+THREE = new_box(100,50, 0, 2)
+FOUR = new_box(100,50, 0,3)
+FIVE = new_box (100,50,0,4)
+SIX = new_box (100,50,0,5)
+SUM_BLOCK_1 = new_box (100,50, 0,6)
+SUM_BLOCK_2 = new_box (100,50,0,7)
+SUM_BLOCK_3 = new_box (100,50,0,8)
+THREE_OF_A_KIND = new_box (100,50 + OFFSET,0,9)
+FOUR_OF_A_KIND = new_box (100,50 + OFFSET,0,10)
+FULL_HOUSE = new_box (100,50 + OFFSET,0,11)
+SMALL_STREET = new_box (100,50 + OFFSET,0,12)
+BIG_STREET = new_box (100,50 + OFFSET,0,13)
+KNIFFEL = new_box (100,50 + OFFSET,0,14)
+CHANCE = new_box(100,50 + OFFSET,0,15)
+SUM_BLOCK_4 = new_box (100,50 + OFFSET,0,16)
+SUM_BLOCK_5 = new_box (100,50 + OFFSET,0,17)
+SUM_BLOCK_6 = new_box (100,50 + OFFSET,0,18)
 screen.fill(WHITE)
-
-block = pygame.image.load("Kniffel-Block-2.jpg")
-
-WIDTH, HEIGHT = 524, 818
-
+block = pygame.image.load("Kniffel-Block-3.jpg")
+WIDTH, HEIGHT = 547, 869
 block = pygame.transform.scale(block, (WIDTH, HEIGHT))
 
+screen.blit(block, (100, 50))
 
-screen.blit(block, (100, 100))
 
 choice_made = False
 Liste = [1,1,1,4,4]
@@ -80,6 +79,7 @@ KNIFFEL_DONE = False
 CHANCE_DONE = False
 
 while running:
+
     for event in pygame.event.get():    
         if event.type == pygame.QUIT:
             running = False 
