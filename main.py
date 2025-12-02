@@ -1,5 +1,4 @@
-import sheet
+from kniffel import app
 
 if __name__ == "__main__":
-    game = sheet.KniffelGame()
-    game.run()
+    app.main()
