@@ -2,11 +2,11 @@
 
 > **Note:** This README was generated using Claude AI.
 
-A digital implementation of the classic dice game Kniffel built with Python and Pygame for a school project.
+A digital implementation of the classic dice game Kniffel built with Python and Pygame.
 
 ## About
 
-Kniffel (known as Yahtzee in English) is a dice game where players roll five dice up to three times per turn to make specific combinations. The goal is to achieve the highest total score across all categories.
+Kniffel (or Yahtzee) is a dice game where players roll five dice up to three times per turn to make specific combinations. The goal is to achieve the highest total score across all categories.
 
 ## Installation
 
