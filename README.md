@@ -1,6 +1,7 @@
 # Kniffel (Yahtzee) Game
 
-> **Note:** This README was generated using Claude AI.
+> [!NOTE]
+> This README was generated using Claude AI.
 
 A digital implementation of the classic dice game Kniffel built with Python and Pygame.
 
