@@ -135,6 +135,19 @@ class Dice:
     def tick(self, dt: float):
         for die in self.group:
             die.tick(dt)
+    
+    def get_values(self) -> list[int]:
+        """Get the current values of all dice"""
+        return [die.value for die in self.group]
+    
+    def reset(self) -> None:
+        """Reset all dice - clear kept status and prepare for new roll"""
+        for die in self.group:
+            die.kept = False
+    
+    def is_rolling(self) -> bool:
+        """Check if any die is currently rolling"""
+        return any(die.rolling for die in self.group)
 
     def draw(self) -> pygame.Surface:
         surface = pygame.Surface((
