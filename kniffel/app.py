@@ -16,7 +16,7 @@ def main() -> None:
     die_group = dice.Dice(5)
     score_manager = sheet.ScoreManager(
         num_players=2,
-        block_image_path="Kniffel-Block-3.jpg",
+        block_image_path="scoresheet.jpg",
         screen_width=interface.dimensions.x.__floor__()
     )
     
