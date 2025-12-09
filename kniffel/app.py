@@ -104,33 +104,39 @@ def main() -> None:
         # Draw centered status text
         font = pygame.font.Font(None, 36)
         center_x = interface.dimensions.x // 2
-        
+
+        text_offset_y = 50
+
         # Phase and rolls text
-        phase_text = font.render(f"Phase: {phase.name} | Rolls: {rolls_remaining}", True, (0, 0, 0))
-        phase_rect = phase_text.get_rect(center=(center_x, 30))
+        phase_text_raw = f"Phase: {phase.name}"
+        if phase == Phase.ROLL:
+            phase_text_raw = f"{phase_text_raw} | Rolls: {rolls_remaining}"
+
+        phase_text = font.render(phase_text_raw, True, (0, 0, 0))
+        phase_rect = phase_text.get_rect(center=(center_x, 30 + text_offset_y))
         interface.surface.blit(phase_text, phase_rect)
         
         # Player turn text
         player_text = font.render(f"Player {score_manager.current_player + 1}'s turn", True, (0, 0, 0))
-        player_rect = player_text.get_rect(center=(center_x, 70))
+        player_rect = player_text.get_rect(center=(center_x, 70 + text_offset_y))
         interface.surface.blit(player_text, player_rect)
         
         # Show appropriate hint based on game state
         if phase == Phase.ROLL and not has_rolled:
             hint_text = font.render("Press SPACE to roll!", True, (255, 0, 0))
-            hint_rect = hint_text.get_rect(center=(center_x, 110))
+            hint_rect = hint_text.get_rect(center=(center_x, 110 + text_offset_y))
             interface.surface.blit(hint_text, hint_rect)
         elif phase == Phase.ROLL and has_rolled:
             hint_text = font.render("Press ENTER to complete turn", True, (0, 150, 0))
-            hint_rect = hint_text.get_rect(center=(center_x, 110))
+            hint_rect = hint_text.get_rect(center=(center_x, 110 + text_offset_y))
             interface.surface.blit(hint_text, hint_rect)
         elif phase == Phase.NOTE:
             hint_text = font.render("Click a category to score", True, (0, 0, 255))
-            hint_rect = hint_text.get_rect(center=(center_x, 110))
+            hint_rect = hint_text.get_rect(center=(center_x, 110 + text_offset_y))
             interface.surface.blit(hint_text, hint_rect)
         elif phase == Phase.WAIT:
             hint_text = font.render("Press ENTER for next player", True, (150, 0, 150))
-            hint_rect = hint_text.get_rect(center=(center_x, 110))
+            hint_rect = hint_text.get_rect(center=(center_x, 110 + text_offset_y))
             interface.surface.blit(hint_text, hint_rect)
 
         interface.finish()
