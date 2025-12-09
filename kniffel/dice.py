@@ -48,6 +48,7 @@ class Die:
 
     def tick(self, dt: float):
         if not self.rolling:
+            self.current = self.value
             return
 
         self.time += dt
