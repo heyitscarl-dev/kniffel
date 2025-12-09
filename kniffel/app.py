@@ -1,4 +1,3 @@
-# app.py
 from enum import Enum
 from kniffel import dice, ui, sheet
 
@@ -24,6 +23,7 @@ def main() -> None:
     rolls_remaining = 3
     has_rolled = False  # Track if player has rolled at least once
     running = True
+    waiting = True
     clock = pygame.time.Clock()
 
     while running:
@@ -32,6 +32,7 @@ def main() -> None:
         for e in pygame.event.get():
             if (e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE
                 or e.type == pygame.QUIT):
+                waiting = False
                 running = False
             
             if phase == Phase.ROLL:
@@ -133,6 +134,13 @@ def main() -> None:
             interface.surface.blit(hint_text, hint_rect)
 
         interface.finish()
+
+    while waiting:
+        for e in pygame.event.get():
+            if (e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE
+                or e.type == pygame.QUIT):
+                waiting = False
+
 
     pygame.quit()
 
